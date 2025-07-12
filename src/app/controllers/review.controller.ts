@@ -23,8 +23,8 @@ reviewRouter.post('/reviews', async (req: Request, res: Response, next) => {
 
 reviewRouter.get('/reviews/:id', async (req: Request, res: Response, next) => {
   try {
-    const collegeId = req.params;
-    const review = await ReviewModel.findById(collegeId);
+    const {id} = req.params;
+    const review = await ReviewModel.findById(id);
     res.json({
       success: true,
       message: "review",

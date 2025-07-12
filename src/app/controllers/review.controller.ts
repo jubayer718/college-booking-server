@@ -21,14 +21,15 @@ reviewRouter.post('/reviews', async (req: Request, res: Response, next) => {
 })
 
 
-reviewRouter.get('/reviews/:id', async (req: Request, res: Response, next) => {
+reviewRouter.get('/reviews', async (req: Request, res: Response, next) => {
+
   try {
-    const {id} = req.params;
-    const review = await ReviewModel.findById(id);
+    const { collegeId } = req.query;
+    const reviews = await ReviewModel.find({collegeId});
     res.json({
       success: true,
       message: "review",
-      data: review
+      data: reviews
     })
   } catch (error) {
     next(error)

@@ -11,7 +11,10 @@ export const admissionSchema = new mongoose.Schema<Admission>(
     address: String,
     dob: String,
     image: String,
-    collegeId: String,
+    collegeId: {
+      type: String,
+      unique:true
+    },
   },
   { timestamps: true }
 );

@@ -3,7 +3,12 @@ import mongoose from "mongoose";
 import { college } from "../interfaces/college.interface";
 
 export const collegeSchema = new mongoose.Schema<college>({
-  name: String,
+  name: {
+    type: String,
+    trim: true,
+    unique: true,
+    required: true,
+  },
   image: String,
   admissionDates: String,
   events: [String],

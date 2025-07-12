@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { collegeRouter } from './app/controllers/colleges.controller';
 import { admissionRouter } from './app/controllers/admission.controller';
@@ -17,6 +17,8 @@ app.use('/api', admissionRouter);
 app.use('/api', reviewRouter);
 
 
-
+app.use('/', (req:Request,res:Response) => {
+  res.send("College booking app")
+})
 
 export default app;

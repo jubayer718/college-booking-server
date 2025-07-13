@@ -12,32 +12,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.reviewRouter = void 0;
+exports.userRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const review_1 = __importDefault(require("../models/review"));
-exports.reviewRouter = express_1.default.Router();
-exports.reviewRouter.post('/reviews', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const user_1 = __importDefault(require("../models/user"));
+exports.userRouter = express_1.default.Router();
+exports.userRouter.post('/users', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const body = yield req.body;
-        const result = yield review_1.default.create(body);
+        const userInfo = req.body;
+        const createdUser = yield user_1.default.create(userInfo);
         res.json({
             success: true,
-            message: 'review added',
-            data: result
+            message: 'User created successfully',
+            data: createdUser
         });
     }
     catch (error) {
         next(error);
     }
 }));
-exports.reviewRouter.get('/reviews', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.userRouter.get('/users', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { collegeId } = req.query;
-        const reviews = yield review_1.default.find({ collegeId });
+        const allUser = yield user_1.default.find();
         res.json({
             success: true,
-            message: "review",
-            data: reviews
+            message: 'all user',
+            data: allUser
+        });
+    }
+    catch (error) {
+        next(error);
+    }
+}));
+exports.userRouter.get("/users/:id", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const uniqueUser = yield user_1.default.findById(id);
+        res.json({
+            success: true,
+            message: "unique user retrieve successfully",
+            data: uniqueUser
         });
     }
     catch (error) {

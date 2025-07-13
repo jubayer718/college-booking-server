@@ -3,8 +3,8 @@ import { Review } from "../interfaces/review.interface";
 
 export const reviewSchema = new mongoose.Schema<Review>({
   collegeId: {
-    type: String,
-    required: true,
+     type: mongoose.Schema.Types.ObjectId,
+    ref: "College",
   },
   userEmail: {
     type: String,

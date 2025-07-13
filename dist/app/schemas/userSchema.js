@@ -13,5 +13,11 @@ exports.userSchema = new mongoose_1.default.Schema({
     email: {
         type: String,
         unique: true
+    },
+    password: {
+        type: String,
+    },
+    role: {
+        type: String,
     }
 }, { timestamps: true });

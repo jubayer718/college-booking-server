@@ -14,12 +14,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.reviewRouter = void 0;
 const express_1 = __importDefault(require("express"));
+const mongodb_1 = require("mongodb");
 const review_1 = __importDefault(require("../models/review"));
+const review_2 = require("../service/review");
 exports.reviewRouter = express_1.default.Router();
 exports.reviewRouter.post('/reviews', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = yield req.body;
-        const result = yield review_1.default.create(body);
+        const newReview = new review_1.default({
+            collegeId: new mongodb_1.ObjectId(body.collegeId),
+            comment: body.comment,
+            rating: body.rating,
+            userEmail: body.userEmail,
+            userName: body.userName,
+            date: body.date,
+        });
+        const result = yield review_1.default.create(newReview);
         res.json({
             success: true,
             message: 'review added',
@@ -43,4 +53,12 @@ exports.reviewRouter.get('/reviews', (req, res, next) => __awaiter(void 0, void 
     catch (error) {
         next(error);
     }
+}));
+exports.reviewRouter.get('/collegeReview', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield (0, review_2.getCollegeDetailsByReview)();
+    res.status(201).json({
+        success: true,
+        message: "reviews retrieve successfully",
+        data: result,
+    });
 }));

@@ -7,8 +7,8 @@ exports.reviewSchema = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 exports.reviewSchema = new mongoose_1.default.Schema({
     collegeId: {
-        type: String,
-        required: true,
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "College",
     },
     userEmail: {
         type: String,
